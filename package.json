@@ -1,0 +1,38 @@
+{
+  "name": "queue_monitor",
+  "version": "1.0.0",
+  "description": "js final project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "juan pablo achio",
+  "license": "ISC",
+  "homepage": "",
+  "dependencies": {
+    "@angular/animations": "",
+    "@angular/common": "",
+    "@angular/compiler": "",
+    "@angular/compiler-cli": "",
+    "@angular/core": "",
+    "@angular/forms": "",
+    "@angular/http": "",
+    "@angular/platform-browser": "",
+    "@angular/platform-browser-dynamic": "",
+    "@angular/platform-server": "",
+    "@angular/router": "",
+    "body-parser": "",
+    "bootstrap": "",
+    "cookie-parser": "",
+    "cors": "",
+    "express": "",
+    "jquery": "",
+    "mongoose": "",
+    "ngx-bootstrap": "^2.0.0-beta.9",
+    "ngx-cookie-service": "^1.0.10",
+    "nodemon": "^1.17.1",
+    "q": "^1.4.1",
+    "typescript": "^2.2.1"
+  }
+}
