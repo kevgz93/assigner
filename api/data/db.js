@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var dburl = 'mongodb://localhost:27017/Queue';
+var dburl = 'mongodb://localhost:27017/assigner';
 
 
 

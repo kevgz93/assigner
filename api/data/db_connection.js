@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 //nombre de la base q se habia creado
-var dburl = 'mongodb://localhost:27017/queue';
+var dburl = 'mongodb://localhost:27017/assigner';
 
 var _connection = null;
 
