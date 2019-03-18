@@ -1,3 +1,62 @@
-<p>
-  home works!
-</p>
+<div class="pb-2 mt-4 mb-2 border-bottom">
+  <div class="row title-home">
+      <h2>Case Assignment</h2>
+  </div>
+  <div class="row monitor">
+      <h4>Current Monitor: </h4>
+      <h4 class="monitor">Kevin Guerrero</h4><!--this will be dynimic-->
+  </div>
+</div>
+
+<div class="table-container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="timeZone">
+      <th mat-header-cell *matHeaderCellDef> Time Zone </th>
+      <td mat-cell *matCellDef="let element"> {{element.timeZone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="max">
+      <th mat-header-cell *matHeaderCellDef> Max c/p</th>
+      <td mat-cell *matCellDef="let element"> {{element.max}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="schedule">
+      <th mat-header-cell *matHeaderCellDef> Schedule </th>
+      <td mat-cell *matCellDef="let element"> {{element.schedule}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="day">
+      <th mat-header-cell *matHeaderCellDef> Day </th>
+      <td mat-cell *matCellDef="let element"> {{element.case.day}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="week">
+      <th mat-header-cell *matHeaderCellDef> Week </th>
+      <td mat-cell *matCellDef="let element"> {{element.case.week}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="month">
+      <th mat-header-cell *matHeaderCellDef> Month </th>
+      <td mat-cell *matCellDef="let element"> {{element.case.month}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element"> botones </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
