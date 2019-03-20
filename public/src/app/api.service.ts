@@ -3,8 +3,6 @@ import { environment } from '../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 import {Router} from '@angular/router';
@@ -50,11 +48,12 @@ export class ApiService {
 
   // API: GET /todos
   public getAllEngineers(): Observable<any> {
-    this.cookie = this.checkCookie();
-    let params = new HttpParams().set("sessionid",this.cookie);
+    //this.cookie = this.checkCookie();
+    //let params = new HttpParams().set("sessionid",this.cookie);
     return this.http
-    .get(API_URL + '/api/ticket/', { params: params })
+    .get(API_URL + '/api/ticket/')//, { params: params }
     .pipe(map(response => {
+      console.log(response);
       return response
     }),
     catchError(error => {
