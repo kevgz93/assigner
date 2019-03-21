@@ -24,12 +24,12 @@ function makeSessionId()
 users.auth = function (req, res) {
   var date = new Date();
 
-	if(!req.body.username || !req.body.password)
+	if(!req.body.user || !req.body.password)
 	{
 		res.send({status:"error",error:'Username or password is missing.'});
 	}
 
-  var user = users.authUser(req.body.username, req.body.password);
+  var user = users.authUser(req.body.user, req.body.password);
 	user.then(function(users){
     res.send(users);
 	}, function(){

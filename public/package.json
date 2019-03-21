@@ -27,6 +27,7 @@
     "ngx-cookie-service": "^2.1.0",
     "popper.js": "^1.14.7",
     "rxjs": "^6.3.3",
+    "sjcl": "^1.0.8",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },

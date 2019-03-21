@@ -1,4 +1,4 @@
-<div class="pb-2 mt-4 mb-2 border-bottom">
+<div class="pb-2 mt-4 mb-2 border-bottom title-container">
   <div class="row title-home">
       <h2>Case Assignment</h2>
   </div>
@@ -9,7 +9,7 @@
 </div>
 
 <div class="table-container mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="engineer">
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
@@ -23,7 +23,7 @@
 
     <ng-container matColumnDef="max">
       <th mat-header-cell *matHeaderCellDef> Max c/p</th>
-      <td mat-cell *matCellDef="let element"> {{element.max}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.max_case}} </td>
     </ng-container>
 
     <ng-container matColumnDef="schedule">
@@ -38,22 +38,23 @@
 
     <ng-container matColumnDef="day">
       <th mat-header-cell *matHeaderCellDef> Day </th>
-      <td mat-cell *matCellDef="let element"> 2 </td>
+      <td mat-cell *matCellDef="let element"> {{element.cases.day}} </td>
     </ng-container>
 
     <ng-container matColumnDef="week">
       <th mat-header-cell *matHeaderCellDef> Week </th>
-      <td mat-cell *matCellDef="let element"> 5 </td>
+      <td mat-cell *matCellDef="let element"> {{element.cases.week}} </td>
     </ng-container>
 
     <ng-container matColumnDef="month">
       <th mat-header-cell *matHeaderCellDef> Month </th>
-      <td mat-cell *matCellDef="let element"> 7 </td>
+      <td mat-cell *matCellDef="let element"> {{element.cases.month}} </td>
     </ng-container>
 
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
-      <td mat-cell *matCellDef="let element"> botones </td>
+      <td mat-cell *matCellDef="let element"> <button class="btn btn-flat btn-primary" (click)="addTicket(element._id)" >+</button>
+        / <button class="btn btn-flat btn-danger" (click)="deleteTicket(element._id)" >-</button> </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

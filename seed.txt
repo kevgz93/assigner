@@ -1,0 +1,1 @@
+db.user.insert({"email":"kguerreroz93@microfocus.com","city":"Heredia","sta_dyn":2,"max_case":0,"status":true,"username":"kevin","password":"kevin","name":"Kevin","last_name":"Guerrero","activeSession":"","role":"admin","working_days":60,"last_case":""})

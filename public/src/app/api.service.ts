@@ -53,7 +53,6 @@ export class ApiService {
     return this.http
     .get(API_URL + '/api/ticket/')//, { params: params }
     .pipe(map(response => {
-      console.log(response);
       return response
     }),
     catchError(error => {
@@ -111,8 +110,7 @@ export class ApiService {
     }));
   }
 
-  public addTickets(body): Observable<any>{
-    console.log('post....');
+  public addTicket(body): Observable<any>{
     return this.http.post(API_URL + '/api/ticket', body,{headers: new HttpHeaders().set('Content-Type','application/json')})
     .pipe(map(response => {
       return response
