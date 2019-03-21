@@ -1,199 +1,125 @@
-
-  <div id="wrapper">
-  
-      <h1>Horizontal Responsive Form</h1>
-      
-      <form onsubmit="return false">
-      <div class="col-2">
-        <label>
-          Name
-          <input placeholder="What is your full name?" id="name" name="name" tabindex="1">
-        </label>
-      </div>
-      <div class="col-2">
-        <label>
-          Company
-          <input placeholder="Where do you currently work?" id="company" name="company" tabindex="2">
-        </label>
-      </div>
-      
-      <div class="col-3">
-        <label>
-          Phone Number
-          <input placeholder="What is the best # to reach you?" id="phone" name="phone" tabindex="3">
-        </label>
-      </div>
-      <div class="col-3">
-        <label>
-          Email
-          <input placeholder="What is your e-mail address?" id="email" name="email" tabindex="4">
-        </label>
-      </div>
-      <div class="col-3">
-        <label>
-          Availability
-          <select tabindex="5">
-            <option>5-15 hrs per week</option>
-            <option>15-30 hrs per week</option>
-            <option>30-40 hrs per week</option>
-          </select>
-        </label>
-      </div>
-      
-      <div class="col-4">
-        <label>
-          Skills
-          <input placeholder="List a few of your primary skills" id="skills" name="skills" tabindex="6">
-        </label>
-      </div>
-      <div class="col-4">
-        <label>
-          Yrs Experience
-          <input placeholder="How many years of experience?" id="experience" name="experience" tabindex="7">
-        </label>
-      </div>
-      <div class="col-4">
-        <label>Contact References?</label>
-        <center style="position:relative; margin-bottom:8px;"><input type="checkbox" class="js-switch"></center>
-      </div>
-      <div class="col-4 switch">
-        <label>E-mail Updates?</label>
-        <center style="position:relative;margin-bottom:8px;"><input type="checkbox" class="js-switch"></center>
-      </div>
-      
-      <div class="col-submit">
-        <button class="submitbtn">Submit Form</button>
-      </div>
-      
-      </form>
-      </div>
-
-<div class="row">
-    <div class="col-sm-12 col-md-10 col-md-offset-1">
-      <h1>User registration</h1>
-    </div>
+<div class="pb-2 mt-4 mb-2 border-bottom title-container">
+  <div class="row title-home">
+      <h2>Registration</h2>
   </div>
-  <div class="row">
-    <div class="col-sm-12 col-md-10 col-md-offset-1">
-      <form  [formGroup]="myform" (ngSubmit)="addUser(myform.value)" role="form" class="form-flat ng-pristine ng-valid">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="form-group empty-value" required>
-                  <label for="engineers_name" class="inp" title="Engineer's name">Name
-                      <input  placeholder="&nbsp;" if="engineers_name" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="name">
-                  </label>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="form-group empty-value" required>
-                  <label for="engineers_last_name" title="Engineer's last name">Last Name</label>
-                  <input type="text" onfocus="onFocus(event);" onblur="onBlur(event);" id="engineers_last_name" formControlName="last_name">
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="form-group" required>
-                  <label for="engineers_email" title="Engineer's email">Email</label>
-                  <input type="email" onfocus="onFocus(event);" onblur="onBlur(event);" id="engineers_email" formControlName="email" placeholder="john.doe@microfocus.com">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="form-group empty-value" required>
-                  <label for="engineers_city" title="Engineer's city">City</label>
-                  <input type="text" onfocus="onFocus(event);" onblur="onBlur(event);" id="engineers_city" formControlName="city">
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="form-group" required>
-                  <label for="types_of_cases" title="Static/Dynamic">Static/Dynamic</label>
-                  <select formControlName="sta_dyn" id="types_of_cases" class="form-control" type="text">
-                    <option value="" disabled>-- Select a value --</option>
-                    <option value="1">Static</option>
-                    <option value="2">Dynamic</option>
-                    <option value="3">Both</option>
-                  </select>
-                  <!--
-                  <div class="dropdown">
-                    <input id="types_of_cases" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" readonly="ReadOnly" type="text"  formControlName="sta_dyn">
-                    <i class="caret"></i>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="type_of_cases_dropdown">
-                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">Both</a></li>
-                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">Dynamic</a></li>
-                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">Static</a></li>
-                    </ul>
-                  </div>-->
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="form-group" required>
-                  <label for="engineers_max_cases" title="Max cases">Max cases</label>
-                  <input type="number" onfocus="onFocus(event);" onblur="onBlur(event);" id="engineers_max_cases" formControlName="max">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="form-group" required>
-                  <label for="status_select" title="Status">Status</label>
-                  <select formControlName="status" id="status_select" class="form-control" type="text">
-                    <option value="" disabled>-- Select a value --</option>
-                    <option value="true">Available</option>
-                    <option value="false">Disable</option>
-                  </select>
-                  <!--
-                  <div class="dropdown">
-                    <input id="status_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" readonly="ReadOnly" type="text" formControlName="status">
-                    <i class="caret"></i>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="status_dropdown">
-                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">Available</a></li>
-                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">Disable</a></li>
-                    </ul>
-                  </div>-->
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="form-group" required>
-                  <label for="role_select" title="Role">Role</label>
-                  <select formControlName="role" id="role_select" class="form-control" type="text">
-                    <option value="" disabled>-- Select a value --</option>
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                  </select>
-                  <!--
-                  <div class="dropdown">
-                    <input id="role_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" readonly="ReadOnly" type="text" formControlName="role">
-                    <i class="caret"></i>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="role_dropdown">
-                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">User</a></li>
-                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">Admin</a></li>
-                    </ul>
-                  </div>-->
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6 col-md-4">
-                <div class="form-group empty-value" required>
-                  <label for="engineers_username" title="Username">Username</label>
-                  <input type="text"  onfocus="onFocus(event);" onblur="onBlur(event);" id="engineers_username" formControlName="username"/>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4">
-                <div class="form-group empty-value" required>
-                  <label for="engineers_password" title="Password">Password</label>
-                  <input type="password"  onfocus="onFocus(event);" onblur="onBlur(event);" id="engineers_password" formControlName="password"/>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="panel-footer panel-button-footer">
-          <button class="btn btn-default" (click)="cancelForm();">Cancel</button>
-            <button class="btn btn-primary" type="submit">Continue</button>
-          </div>
-        </div>
-      </form>
+</div>
+
+
+<div class="container">
+  <div class="row row-container">
+    <form class="form-card">
+      <div class="col-lg-3">
+        <label class="field a-field a-field_a1 page__field">
+          <input class="field__input a-field__input" placeholder="e.g. Matt" required>
+          <span class="a-field__label-wrap">
+            <span class="a-field__label">First name</span>
+          </span>
+        </label>
+      </div>
+      <div class="col-lg-3">
+        <label class="field a-field a-field_a1 page__field">
+          <input class="field__input a-field__input" placeholder="e.g. Lee" required>
+          <span class="a-field__label-wrap">
+            <span class="a-field__label">Last Name</span>
+          </span>
+        </label>
+      </div>
+      <div class="col-lg-3">
+        <label class="field a-field a-field_a1 page__field">
+          <input class="field__input a-field__input" placeholder="e.g. user@microfocus.com" required>
+          <span class="a-field__label-wrap">
+            <span class="a-field__label">Email</span>
+          </span>
+        </label>
+      </div>
+      <div class="col-lg-3">
+        <label class="field a-field a-field_a1 page__field">
+          <input class="field__input a-field__input" placeholder="e.g. Alphareta" required>
+          <span class="a-field__label-wrap">
+            <span class="a-field__label">City</span>
+          </span>
+        </label>
+      </div>
     </div>
+    <div class="row row-container">
+      <div class="col-lg-3">
+        <label class="field a-field a-field_a1 page__field">
+          <input class="field__input a-field__input" placeholder="0" required>
+          <span class="a-field__label-wrap">
+            <span class="a-field__label">Max Case</span>
+          </span>
+        </label>
+      </div>
+      <div class="col-lg-3">
+        <label class="field a-field a-field_a1 page__field">
+          <input class="field__input a-field__input" placeholder="" required>
+          <span class="a-field__label-wrap">
+            <span class="a-field__label">Static/Dynamic</span>
+          </span>
+        </label>
+      </div>
+      <div class="col-lg-3">
+          <div class="wrap-input100 input100-select">
+            <span class="label-input100">Needed Services</span>
+            <div>
+              <select class="selection-2" name="service">
+                <option>Choose Services</option>
+                <option>Online Store</option>
+                <option>eCommerce Bussiness</option>
+                <option>UI/UX Design</option>
+                <option>Online Services</option>
+              </select>
+            </div>
+            <span class="focus-input100"></span>
+          </div>
+      </div>
+      <div class="col-lg-3">
+        <label class="field a-field a-field_a1 page__field">
+          <input class="field__input a-field__input" placeholder="e.g. Stanislav" required>
+          <span class="a-field__label-wrap">
+            <span class="a-field__label">Status</span>
+          </span>
+        </label>
+      </div>
+    </div>
+    <div class="row row-container">
+      <div class="col-lg-6">
+        <label class="field a-field a-field_a1 page__field">
+          <input class="field__input a-field__input" placeholder="LeeMat123" required>
+          <span class="a-field__label-wrap">
+            <span class="a-field__label">Username</span>
+          </span>
+        </label>
+      </div>
+      <div class="col-lg-6">
+        <label class="field a-field a-field_a1 page__field">
+          <input type="password" class="field__input a-field__input" placeholder="" required>
+          <span class="a-field__label-wrap">
+            <span class="a-field__label">Password</span>
+          </span>
+        </label>
+      </div>
+    </form>
   </div>
+</div>
+
+<script>
+  try {
+    var selectSimple = $('.js-select-simple');
+
+    selectSimple.each(function () {
+        var that = $(this);
+        var selectBox = that.find('select');
+        var selectDropdown = that.find('.select-dropdown');
+        selectBox.select2({
+            dropdownParent: selectDropdown
+        });
+    });
+
+} catch (err) {
+    console.log(err);
+}
+
+
+})(jQuery);
+</script>
