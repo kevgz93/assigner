@@ -5,7 +5,7 @@ var helpers = require('../helper/helperFunctions');
 
 var ctrlTicket = require('../controllers/ticket.controller.js');
 var ctrlUsers = require('../controllers/user.controller.js');
-var ctrlReport = require('../controllers/report.controller.js');
+var ctrlReport_case = require('../controllers/report_case.controller.js');
 var ctrlSchedule = require('../controllers/schedule.controller.js');
 var ctrlRotation = require('../controllers/rotation.controller.js');
 
@@ -13,7 +13,7 @@ var ctrlRotation = require('../controllers/rotation.controller.js');
 
 router
   .route('/login/register')
-  .post(ctrlUsers.register);
+  .post(helpers.isAdmin,ctrlUsers.register);
 
 router
   .route('/checksession')
@@ -26,8 +26,8 @@ router
 router
   .route('/schedule')
   .get(ctrlSchedule.getScheduleId)
-  .post(ctrlSchedule.createSchedule)
-  .put(ctrlSchedule.updateSchedule);
+  .post(helpers.isAdmin,ctrlSchedule.createSchedule)
+  .put(helpers.isAdmin,ctrlSchedule.updateSchedule);
   
 
 router
@@ -42,11 +42,11 @@ router
   .route('/user')
   .get(ctrlUsers.userGetOne)
   .put(ctrlUsers.usersUpdateOne)
-  .delete(ctrlUsers.usersDeleteOne);
+  .delete(helpers.isAdmin,ctrlUsers.usersDeleteOne);
 
   router
   .route('/getusers')
-  .get(ctrlUsers.getUsersWithNamesOnly);
+  .get(ctrlUsers.getUsersToModify);
 
   router
   .route('/check')
@@ -59,14 +59,18 @@ router
 .put(ctrlTicket.ticketDelete);
 
 router
-.route('/reports')
-.post(ctrlReport.generateReports)
+.route('/reports/case')
+.post(helpers.isAdmin,ctrlReport_case.generateReports) //helpers.isAdmin
 
 router
 .route('/rotation/')
 .get(ctrlRotation.getRotationByWeek) //helpers.isAuthenticated,
-.post(ctrlRotation.createRotation)
-.put(ctrlRotation.updateRotation);
+.post(helpers.isAdmin,ctrlRotation.createRotation)
+.put(helpers.isAdmin,ctrlRotation.updateRotation);
+
+router
+.route('/rotation/users')
+.get(ctrlRotation.getUsersToMonitor)
 
 router
 .route('/rotations/')

@@ -1,81 +1,30 @@
-.table-container {
-    height: 94%;
-    overflow: auto;
+.title-home{
+    padding-left: 2%;
+    margin-bottom:2%;
+    margin-right: -3%;
+  }
+
+  .title-container{
+    padding-right: 3%;
+  }
+
+  .schedule-table{
+    margin-top: 2%;
+  }
+
+  .schedule-table h4{
+    padding-left: 3%;
   }
   
-  table {
-    width: 100%;
+  .select-input{
+    padding-top: 1%;
   }
 
-  .example-container {
-    display: flex;
-    flex-direction: column;
-    max-height: 500px;
-    min-width: 300px;
-  }
-  
-  .mat-table {
-    overflow: auto;
-    max-height: 500px;
-  }
-  
-  .element-row {
-    position: relative;
-  }
-  
-  .row-time{
-    padding-top: 5%;
+  .is-invalid{
+    border:1px solid red;
   }
 
-  .element-row:not(.expanded):hover {
-    background: #f5f5f5;
-  }
-  
-  .element-row.expanded {
-    border-bottom-color: transparent;
-  }
-
-  /*      form to register */
- .style-col{
-  margin-top: 2%;
-}
-
-.select-input{
-  padding-top: 1%;
-}
-
-.cont-button{
-  padding-top: 7%;
-}
-
-.input-time{
-  width:25%;
-}
-
-.col-align{
-  text-align: right;
-}
-.select-box{
-  padding-top: 60% !important;
-}
-
-.row-time{
-  padding-top: 5%;
-}
-
-.is-invalid{
-  border:1px solid red;
-}
-
-
-/********* make dropdown work on modal */
-
-.cdk-global-overlay-wrapper, .cdk-overlay-container {
-  z-index: 99999 !important;
-}
-
-
-/*
+  /*
 =====
 LEVEL 1. RESET STYLES
 =====

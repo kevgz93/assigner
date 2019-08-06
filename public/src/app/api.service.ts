@@ -73,7 +73,7 @@ export class ApiService {
     }));
   }
 
-  public getAllUsers(): Observable<any> {
+  public getAllUsers(): Observable<any>{
     return this.http
     .get(API_URL + '/api/getusers')
     .pipe(map(response => {
@@ -84,6 +84,17 @@ export class ApiService {
     }));
   }
 
+  //get users to dropdown in rotation component
+  public getUsersRotation(): Observable<any> {
+    return this.http
+    .get(API_URL + '/api/rotation/users')
+    .pipe(map(response => {
+      return response
+    }),
+    catchError(error => {
+      return throwError(error)
+    }));
+  }
   
   // API: GET one engineer
   public getOneEngineer(id): Observable<any> {
@@ -97,6 +108,23 @@ export class ApiService {
       return throwError(error)
     }));
   }
+
+    // API: GET one engineer
+    public deleteUser(id, schedule_id): Observable<any> {
+      console.log(schedule_id);
+       let params = new HttpParams();  
+      params = params.append("id",id);
+      params = params.append("schedule_id",schedule_id);
+      params = params.append("sessionId",this.cookie);
+      return this.http
+      .delete(API_URL + '/api/user/', { params: params })
+      .pipe(map(response => {
+        return response
+      }),
+      catchError(error => {
+        return throwError(error)
+      }));
+    }
   
   public getSchedule(id): Observable<any> {
     let params = new HttpParams().set("id",id);    
@@ -135,6 +163,7 @@ export class ApiService {
   
 
   public addUser(data): Observable<any> {
+    data.sessionId = this.cookie;
     let body = JSON.stringify(data);
     return this.http
     .post(API_URL + '/api/login/register', body,
@@ -148,6 +177,7 @@ export class ApiService {
   }
 
   public updateUser(data): Observable<any> {
+    data.sessionId = this.cookie;
     let body = JSON.stringify(data);
     return this.http
     .put(API_URL + '/api/user', body,
@@ -160,7 +190,23 @@ export class ApiService {
     }));
   }
 
+    //update rotation
+  public updateRotation(data): Observable<any> {
+    data.sessionId = this.cookie;
+    let body = JSON.stringify(data);
+    return this.http
+    .put(API_URL + '/api/rotation/', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .pipe(map(response => {
+      return response
+    }),
+    catchError(error => {
+      return throwError(error)
+    }));
+  }
+
   public addSchedule(data): Observable<any> {
+    data.sessionId = this.cookie;
     let body = JSON.stringify(data);
     return this.http
     .post(API_URL + '/api/schedule', body,
@@ -173,6 +219,7 @@ export class ApiService {
     }));
   }
   public updateSchedule(data): Observable<any> {
+    data.sessionId = this.cookie;
     let body = JSON.stringify(data);
     return this.http
     .put(API_URL + '/api/schedule', body,
@@ -186,6 +233,7 @@ export class ApiService {
   }
 
   public getReport(values): Observable<any> {
+    values.sessionId = this.cookie;
     let body = JSON.stringify(values);
     return this.http
     .post(API_URL + '/api/reports', body,
@@ -295,9 +343,23 @@ export class ApiService {
     }));
   }
 
-  private handleError (error: Response | any) {
-    console.error('ApiService::handleError', error);
-    return Observable.throw(error);
+  public getReportCase(data): Observable<Object> {
+    data.sessionId = this.cookie;
+    let body = JSON.stringify(data);
+    return this.http
+    .post(API_URL + '/api/reports/case', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .pipe(map(response => {
+      return response
+    }),
+    catchError(error => {
+      return throwError(error)
+    }));
   }
+
+  // private handleError (error: Response | any) {
+  //   console.error('ApiService::handleError', error);
+  //   return Observable.throw(error);
+  // }
 
 }

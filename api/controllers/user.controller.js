@@ -1,10 +1,12 @@
 var userModel = require('../data/user.model.js');
+var scheduleModel = require('../data/schedule.model.js');
 var mongoose = require('mongoose');
 var cookie = require('cookie-parser');
 
 var q = require('q');
 
 var db = mongoose.model('user');
+var schedule = mongoose.model('schedule');
 var users = {};
 
 
@@ -111,7 +113,7 @@ users.register = function (req, res) {
 
         res
           .status(201)
-          .json({status:201,user:user});
+          .json({status:201,body:user});
 
       }
     });
@@ -203,6 +205,7 @@ users.findUser = function(session){
         response.last_name = dbuser.last_name;
         response._id = dbuser._id;
         response.role = dbuser.role;
+        //response.timezone = dbuser.time_zone;
 			  results.resolve(response);
 
     }  else{
@@ -282,7 +285,7 @@ users.userGetOne = function(req, res) {
     });
 };
 
-users.getUsersWithNamesOnly = function(req, res, next) {
+users.getUsersToModify = function(req, res, next) {
 
   var engineer = users.loadEnginners2()
   engineer.then(function(engineers){
@@ -304,13 +307,36 @@ users.loadEnginners2 = function(){
     [
       {
         $match:{
-          "status":true
+          
         }
-      },  
+      },
+      {
+        $lookup: {
+          from: 'schedules', 
+          localField: '_id', 
+          foreignField: 'user_id', 
+          'as': 'schedule_loaded'
+        }
+      },
         { "$project": {
+          "_id": 1,
+          "email":1,
+          "city":1,
+          "time_zone":1,
+          "sta_dyn":1,
+          "max_case":1,
+          "username":1,
+          "password":1,
           "name":1,
           "last_name":1,
-          "_id":1
+          "activeSession":1,
+          "status":1,
+          "role":1,
+          "day_on":1,
+          "day_off":1,
+          "days_working":1,
+          "last_case":1,
+          "schedule_loaded":1
         }
       }
     ],function(err, engi) {
@@ -327,6 +353,7 @@ users.loadEnginners2 = function(){
   }
 
 users.usersUpdateOne = function (req, res) {
+  //console.log('Monse guapa',req.body);
 
   var userId = req.body._id;
   var doc = {};
@@ -337,7 +364,7 @@ users.usersUpdateOne = function (req, res) {
   doc.username= req.body.username,
   doc.password= req.body.password,
   doc.name= req.body.name,
-  doc.lastName= req.body.lastName,
+  doc.last_name= req.body.last_name,
   doc.role= req.body.role
   doc.status= req.body.status
   console.log("Get User" + userId);
@@ -353,23 +380,48 @@ users.usersUpdateOne = function (req, res) {
     })
 
 };
+//Delete Schedule from the deleted user
+users.deleteschedule= function(schedule_id){ //id
 
+  //var userId = req.query._id;
+     return new Promise(function(resolve, reject){
+       var results;
+
+       schedule.findByIdAndRemove(schedule_id).exec(function(err, schedule){
+
+        if (err){
+          reject(err);
+          }
+        else{
+          resolve(schedule);
+        }
+
+      })
+
+
+    })
+};
+
+//Delete user
 users.usersDeleteOne = function(req, res) {
-  var userId = req.params.userId;
+  //console.log('ids para borrar', req.query);
+  var id = req.query.id;
+  var schedule_id = req.query.schedule_id;
 
   db
-    .findByIdAndRemove(userId)
-    .exec(function(err, userId){
+    .findByIdAndRemove(id)
+    .exec(function(err, user){
       if (err) {
         res
-          .status(404)
-          .json(err);
-      } else {
-        console.log('user deleted ID: ', userId);
-        res
-          .status(204)
-          .json(userId);
+          .send({status:404});
       }
+        users.deleteschedule(schedule_id).then(function(result){
+          res.send({status:204});
+
+        }, function(err){
+          res.send(err);
+        })
+
     });
 };
 

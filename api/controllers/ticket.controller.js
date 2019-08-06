@@ -1,5 +1,5 @@
 var tick_engi = require('../data/case.model.js');
-var bitacora = require('./report.controller');
+//var bitacora = require('./report.controller');
 var userModel = require('../data/user.model.js');
 
 
@@ -129,7 +129,7 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
   var date = new Date();
   var response;
   month = (date.getMonth() + 1);
-  time = (date.getHours() +1) + ':' + date.getMinutes() + " EST";
+  time = (date.getHours() +1) + ':' + date.getMinutes();
   _cases.create({
     user: {
       user_id :req.body.user_id,

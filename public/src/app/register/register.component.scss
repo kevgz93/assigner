@@ -1,12 +1,44 @@
-/*
-P.S: if you like my content maybe you will become a donator and donate some money? That helps me to create new awesome materials. https://www.paypal.me/melnik909
-*/
+.style-col{
+  margin-top: 2%;
+}
+
+.select-input{
+  padding-top: 1%;
+}
+
+.cont-button{
+  padding-top: 7%;
+}
+
+.input-time{
+  width:25%;
+}
+
+.col-align{
+  text-align: right;
+}
+.select-box{
+  padding-top: 60% !important;
+}
+
+.row-time{
+  padding-top: 5%;
+}
+
+.is-invalid{
+  border:1px solid red;
+}
+
+
+/**********/
 
 /*
 =====
 LEVEL 1. RESET STYLES
 =====
 */
+
+/********* fields ********/
 
 .field{
   --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #767676);

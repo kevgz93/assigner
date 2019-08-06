@@ -1,30 +1,148 @@
+<form [formGroup]="myform" (ngSubmit)="updateRotation(myform.value)" role="form" class="form-card" *ngIf='showTable'>
 <table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Monday</th>
-      <th scope="col">Tuesday</th>
-      <th scope="col">Wednesday</th>
-      <th scope="col">Thursday</th>
-      <th scope="col">Friday</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Morning</td>
-      <td>Engineer</td>
-      <td>Engineer</td>
-      <td>Engineer</td>
-      <td>Engineer</td>
-      <td>Engineer</td>
-    </tr>
-    <tr>
-      <td>Afternoon</td>
-      <td>Engineer</td>
-      <td>Engineer</td>
-      <td>Engineer</td>
-      <td>Engineer</td>
-      <td>Engineer</td>
-    </tr>
-  </tbody>
-</table>
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Monday</th>
+        <th scope="col">Tuesday</th>
+        <th scope="col">Wednesday</th>
+        <th scope="col">Thursday</th>
+        <th scope="col">Friday</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Morning</th>
+        <td>
+          <div formGroupName='monday'>
+            <mat-form-field >
+              <mat-select formControlName="morning" [disabled]="selectDisabled">
+                <mat-option *ngFor="let user of users" [value]="user._id">
+                  {{user.name}} {{user.last_name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </td>
+        <td>
+          <div formGroupName='tuesday'>
+            <mat-form-field>
+              <mat-select formControlName="morning" [disabled]="selectDisabled">
+                <mat-option *ngFor="let user of users" [value]="user._id">
+                  {{user.name}} {{user.last_name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </td>
+        <td>
+          <div formGroupName='wednesday'>
+            <mat-form-field>
+              <mat-select formControlName="morning" [disabled]="selectDisabled">
+                <mat-option *ngFor="let user of users" [value]="user._id">
+                  {{user.name}} {{user.last_name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </td>
+      <td>
+        <div formGroupName='thursday'>
+          <mat-form-field>
+            
+            <mat-select formControlName="morning" [disabled]="selectDisabled">
+              <mat-option *ngFor="let user of users" [value]="user._id">
+                {{user.name}} {{user.last_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </td>
+      <td>
+        <div formGroupName='friday'>
+          <mat-form-field>
+            
+            <mat-select formControlName="morning" [disabled]="selectDisabled">
+              <mat-option *ngFor="let user of users" [value]="user._id">
+                {{user.name}} {{user.last_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </td>
+      </tr>
+      <tr>
+        <th scope="row">Afternoon</th>
+        <td>
+          <div formGroupName='monday'>
+            <mat-form-field>
+              
+              <mat-select formControlName="afternoon" [disabled]="selectDisabled">
+                <mat-option *ngFor="let user of users" [value]="user._id">
+                  {{user.name}} {{user.last_name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </td>
+        <td>
+          <div formGroupName='tuesday'>
+            <mat-form-field>
+              
+              <mat-select formControlName="afternoon" [disabled]="selectDisabled">
+                <mat-option *ngFor="let user of users" [value]="user._id">
+                  {{user.name}} {{user.last_name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </td>
+        <td>
+          <div formGroupName='wednesday'>
+            <mat-form-field>
+              
+              <mat-select formControlName="afternoon" [disabled]="selectDisabled">
+                <mat-option *ngFor="let user of users" [value]="user._id">
+                  {{user.name}} {{user.last_name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </td>
+      <td>
+        <div formGroupName='thursday'>
+          <mat-form-field>
+            
+            <mat-select formControlName="afternoon" [disabled]="selectDisabled">
+              <mat-option *ngFor="let user of users" [value]="user._id">
+                {{user.name}} {{user.last_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </td>
+      <td>
+        <div formGroupName='friday'>
+          <mat-form-field>
+            
+            <mat-select formControlName="afternoon" [disabled]="selectDisabled">
+              <mat-option *ngFor="let user of users" [value]="user._id">
+                {{user.name}} {{user.last_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="modify-update">
+      <button class="btn btn-info" type="submit" *ngIf='btn.update'>Update</button>
+      
+  </div>
+  
+</form>
+<div class="modify-update">
+  <button class="btn btn-info" *ngIf='btn.modify' (click)='modifyRotation()'>Modify</button>
+  <button class="btn btn-warning" (click)='cancelForm()' *ngIf='btn.update'>cancel</button>
+</div>

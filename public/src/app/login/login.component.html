@@ -1,29 +1,34 @@
-<div class="container">
-        <div class="col-md-6 col-md-offset-3 loginBox">
-            <h3>Log In</h3>
-            <p *ngIf="message" class="text-center error">{{message}}</p>
-          <form [formGroup]="loginForm" (ngSubmit)="login()">
-              <div class="form-group clearfix" [ngClass]="{ 'has-error': submitted && f.userid.errors }">
-                  <label for="userid" class="col-md-3 col-sm-5 col-xs-12">User</label>
-                  <div class="col-md-9 col-sm-7 col-xs-12">
-                      <input type="text" class="form-control" formControlName="user" />
-                      <div *ngIf="submitted && f.userid.errors" class="help-block">
-                            <div *ngIf="f.userid.errors.required">User is required</div>
-                      </div>
+  <div class="container login-box">
+    <div class="logo">
+      <img src="../../assets/mf_fortify_bluesquare_logo.png" alt="logo-login" width="50%">
+    </div>
+    <div class="title">
+        <h2>Case Assigner - Login</h2>
+    </div>
+    <div class="col-md-6 col-md-offset-3 login-marge">
+        <p *ngIf="message" class="text-center error">{{message}}</p>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="form-group clearfix" [ngClass]="{ 'has-error': submitted && f.userid.errors }">
+              <label for="userid" class="col-md-3 col-sm-5 col-xs-12">User</label>
+              <div class="col-md-9 col-sm-7 col-xs-12">
+                  <input type="text" class="form-control" formControlName="user" />
+                  <div *ngIf="submitted && f.userid.errors" class="help-block">
+                        <div *ngIf="f.userid.errors.required">User is required</div>
                   </div>
               </div>
-              <div class="form-group clearfix" [ngClass]="{ 'has-error': submitted && f.password.errors }">
-                <label for="password" class="col-md-3 col-sm-5 col-xs-12">Password</label>
-                <div class="col-md-9 col-sm-7 col-xs-12">
-                    <input type="password" class="form-control" formControlName="password"/>
-                    <div *ngIf="submitted && f.password.errors" class="help-block">
-                            <div *ngIf="f.password.errors.required">Password is required</div>
-                    </div>
+          </div>
+          <div class="form-group clearfix" [ngClass]="{ 'has-error': submitted && f.password.errors }">
+            <label for="password" class="col-md-3 col-sm-5 col-xs-12">Password</label>
+            <div class="col-md-9 col-sm-7 col-xs-12">
+                <input type="password" class="form-control" formControlName="password"/>
+                <div *ngIf="submitted && f.password.errors" class="help-block">
+                        <div *ngIf="f.password.errors.required">Password is required</div>
                 </div>
-              </div>
-              <div class="col-xs-12 form-group text-right">
-                <button class="btn btn-success" type="submit">Login</button>
-              </div>
-          </form>
-        </div>
+            </div>
+          </div>
+          <div class="col-xs-12 form-group text-right">
+            <button class="btn btn-info" type="submit">Login</button>
+          </div>
+      </form>
     </div>
+  </div>

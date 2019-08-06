@@ -55,10 +55,8 @@ export class LoginComponent implements OnInit {
         let password = user.password;
         var out = sjcl.hash.sha256.hash(password);
         user.password = sjcl.codec.hex.fromBits(out);
-        console.log(user);
         this.service.login(user)
         .subscribe(response =>{
-            console.log(response);
             
             let status: any = response.status;
             if(status === 'success'){
@@ -68,7 +66,7 @@ export class LoginComponent implements OnInit {
             window.location.replace('/home');
             }
             else {
-                this.message = "Please check your userid and password";
+                this.message = "Please check your user and password";
             }
 
         });

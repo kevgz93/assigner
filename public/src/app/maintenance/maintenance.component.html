@@ -1,28 +1,289 @@
+<div class="pb-2 mt-4 mb-2 border-bottom title-container">
+  <div class="row title-home">
+      <h2>Edit user</h2>
+  </div>
+</div>
+
 <div class="table-container mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="engineer">
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.name}} {{element.last_name}}</td>
     </ng-container>
 
     <ng-container matColumnDef="editUser">
       <th mat-header-cell *matHeaderCellDef> Edit User </th>
-      <td mat-cell *matCellDef="let element"> boton para edit</td>
+      <td mat-cell *matCellDef="let element"> <button class="btn btn-info" (click)="openModalUser(userTemplate, element)">Edit User</button></td>
     </ng-container>
 
     <ng-container matColumnDef="editSchedule">
       <th mat-header-cell *matHeaderCellDef> Edit Schedule</th>
-      <td mat-cell *matCellDef="let element"> boton para edit </td>
+      <td mat-cell *matCellDef="let element"> <button class="btn btn-primary" (click)="openModalSchedule(scheduleTemplate, element)">Edit Schedule</button> </td>
     </ng-container>
 
     <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef> Delete</th>
-      <td mat-cell *matCellDef="let element"> boton para edit </td>
+      <th mat-header-cell *matHeaderCellDef> Delete </th>
+      <td mat-cell *matCellDef="let element"> <button class="btn btn-danger" (click)="openModalDelete(deleteTemplate, element)">Delete</button> </td>
     </ng-container>
 
-  
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
+
+<ng-template #scheduleTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modify Schedule for {{user.name}}&nbsp;{{user.last_name}}</h4>
+  </div>
+  <form [formGroup]="myform2" (ngSubmit)="updateSchedule(myform2.value)" role="form" class="form-card">
+    <div class="modal-body">
+        <div class="container" *ngIf='showScheduleFrom'>
+            <div class="row row-time">
+              <mat-form-field style="width:40%;">
+                <mat-label>Time Zone</mat-label>
+                <mat-select formControlName="time">
+                  <mat-option *ngFor="let time of timezone" [value]="time.value">
+                    {{time.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 offset-lg-3">
+                <h3>Start Time</h3>
+              </div>
+              <div class="col-lg-4 ">
+                  <h3>End Time</h3>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <h4>Monday</h4>
+              </div>
+              <div class="col-lg-3 input-align">
+                <div formGroupName='monday'>
+                  <input  formControlName="startHour" class="input-time" type="number" />:
+                  <input  formControlName="startMinute" class="input-time" type="number" />
+                </div>
+                
+              </div>
+              <div class="col-lg-3 input-align">
+                <div formGroupName='monday'>
+                  <input  formControlName="endHour" class="input-time" type="number" />:
+                  <input  formControlName="endMinute" class="input-time" type="number" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <h4>Tuesday</h4>
+              </div>
+              <div class="col-lg-3 input-align">
+                <div formGroupName='tuesday'>
+                  <input   formControlName="startHour" class="input-time" type="number" />:
+                  <input   formControlName="startMinute" class="input-time" type="number" />
+                </div>
+                
+              </div>
+              <div class="col-lg-3 input-align">
+                <div formGroupName='tuesday'>
+                  <input  formControlName="endHour" class="input-time" type="number" />:
+                  <input  formControlName="endMinute" class="input-time" type="number" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <h4>Wednesday</h4>
+              </div>
+              <div class="col-lg-3 input-align">
+                <div formGroupName='wednesday'>
+                  <input  formControlName="startHour" class="input-time" type="number" />:
+                  <input  formControlName="startMinute" class="input-time" type="number" />
+                </div>
+                
+              </div>
+              <div class="col-lg-3 input-align">
+                <div formGroupName='wednesday'>
+                  <input  formControlName="endHour" class="input-time" type="number" />:
+                  <input  formControlName="endMinute" class="input-time" type="number" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <h4>Thursday</h4>
+              </div>
+              <div class="col-lg-3 input-align">
+                <div formGroupName='thursday'>
+                  <input  formControlName="startHour" class="input-time" type="number" />:
+                  <input  formControlName="startMinute" class="input-time" type="number" />
+                </div>
+                
+              </div>
+              <div class="col-lg-3 input-align">
+                <div formGroupName='thursday'>
+                  <input  formControlName="endHour" class="input-time" type="number" />:
+                  <input  formControlName="endMinute" class="input-time" type="number" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <h4>Friday</h4>
+              </div>
+              <div class="col-lg-3 input-align">
+                <div formGroupName='friday'>
+                  <input  formControlName="startHour" class="input-time" type="number" />:
+                  <input  formControlName="startMinute" class="input-time" type="number" />
+                </div>
+              </div>
+              <div class="col-lg-3 input-align">
+                <div formGroupName='friday'>
+                  <input  formControlName="endHour" class="input-time" type="number" />:
+                  <input  formControlName="endMinute" class="input-time" type="number" />
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-flat btn-primary" type="submit">
+              Update
+          </button>
+        <button type="button" class="btn btn-flat btn-default" (click)="modalRef.hide()">
+            Cancel
+        </button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #userTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modify {{user.name}}&nbsp;{{user.last_name}}</h4>
+  </div>
+  <form [formGroup]="myform" (ngSubmit)="updateUser(myform.value)" role="form" class="form-card">
+    <div class="modal-body">
+      <div class="container" *ngIf='showUserFrom'>
+        <div class="row row-container">
+          <div class="col-lg-3 style-col">
+            <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+              <input formControlName="name" class="field__input a-field__input" placeholder="e.g. Matt" required>
+              <span class="a-field__label-wrap">
+                <span class="a-field__label">First name</span>
+              </span>
+            </label>
+          </div>
+          <div class="col-lg-3 style-col">
+            <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }">
+              <input formControlName="last_name" class="field__input a-field__input" placeholder="e.g. Lee" required>
+              <span class="a-field__label-wrap">
+                <span class="a-field__label">Last Name</span>
+              </span>
+            </label>
+          </div>
+          <div class="col-lg-3 style-col">
+            <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+              <input formControlName="email" class="field__input a-field__input" placeholder="e.g. user@microfocus.com" required>
+              <span class="a-field__label-wrap">
+                <span class="a-field__label">Email</span>
+              </span>
+            </label>
+          </div>
+          <div class="col-lg-3 style-col">
+            <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+              <input formControlName="city" class="field__input a-field__input" placeholder="e.g. Alphareta" required>
+              <span class="a-field__label-wrap">
+                <span class="a-field__label">City</span>
+              </span>
+            </label>
+          </div>
+        </div>
+        <div class="row row-container">
+          <div class="col-lg-3 style-col">
+            <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.max.errors }">
+              <input formControlName="max" class="field__input a-field__input" placeholder="0" required>
+              <span class="a-field__label-wrap">
+                <span class="a-field__label">Max Case</span>
+              </span>
+            </label>
+          </div>
+          <div class="col-lg-3 style-col select-input">
+            <mat-form-field>
+              <mat-label>Static/Dynamic</mat-label>
+              <mat-select formControlName="sta_dyn">
+                <mat-option *ngFor="let supp of support" [value]="supp.value">
+                  {{supp.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3 style-col select-input">
+            <mat-form-field>
+              <mat-label>Role</mat-label>
+              <mat-select formControlName="role">
+                <mat-option *ngFor="let role of roles" [value]="role.value">
+                  {{role.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3 style-col select-input">
+            <mat-form-field>
+              <mat-label>Status</mat-label>
+              <mat-select formControlName="status">
+                <mat-option *ngFor="let sta of status" [value]="sta.value">
+                  {{sta.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row row-container">
+          <div class="col-lg-3">
+            <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+              <input formControlName="username" class="field__input a-field__input" placeholder="LeeMat123" required>
+              <span class="a-field__label-wrap">
+                <span class="a-field__label">Username</span>
+              </span>
+            </label>
+          </div>
+          <div class="col-lg-3">
+            <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+              <input formControlName="password" type="password" class="field__input a-field__input" placeholder="Passw@rd123" required>
+              <span class="a-field__label-wrap">
+                <span class="a-field__label">Password</span>
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-flat btn-primary" type="submit">
+        Update
+      </button>
+      <button type="button" class="btn btn-flat btn-info" (click)="modalRef.hide()" [disabled]="loading">
+        Cancel
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #deleteTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete {{user.name}}&nbsp;{{user.last_name}}</h4>
+  </div>
+  <div class="modal-body">
+    Are you sure you want to delete the user {{user.name}}&nbsp;{{user.last_name}} from the system?
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-flat btn-danger" (click)="delete(user)">
+          Delete
+      </button>
+    <button type="button" class="btn btn-flat btn-default" (click)="modalRef.hide()">
+        Cancel
+    </button>
+</div>
+</ng-template>

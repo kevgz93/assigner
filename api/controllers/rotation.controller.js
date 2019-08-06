@@ -1,36 +1,44 @@
 var rotationModel = require('../data/rotation.model.js');
+var userModel = require('../data/user.model.js');
 var mongoose = require('mongoose');
 var q = require('q');
 
 var db = mongoose.model('rotation');
+var users = mongoose.model('user');
 var rotation = {};
 
 
 rotation.createRotation = function (req, res) {
     console.log(req.body.user_id);
 
-    if(!req.body.monday_morning)
+    if(!req.body.monday)
     {
         res.status(400);
         res.send({status:'error',error:'Values missing.'});
     }
 
     db.create({ 
-        monday_morning : req.body.monday_morning,
-        monday_afternoon : req.body.monday_afternoon,
-        tuesday_morning: req.body.tuesday_morning,
-        tuesday_afternoon: req.body.tuesday_afternoon,
-        wednesday_morning: req.body.wednesday_morning,
-        wednesday_afternoon: req.body.wednesday_afternoon,
-        thursday_morning : req.body.thursday_morning,
-        thursday_afternoon : req.body.thursday_afternoon,
-        friday_morning: req.body.friday_morning,
-        friday_afternoon: req.body.friday_afternoon,
-        active: {
-            status:req.body.status,
-            day:req.body.day
+        monday :{
+            morning:req.body.monday.morning,
+            afternoon:req.body.monday.afternoon
+        } ,
+        tuesday : {
+            morning:req.body.tuesday.morning,
+            afternoon:req.body.tuesday.afternoon
         },
-        week: req.body.week
+        wednesday: {
+            morning:req.body.wednesday.morning,
+            afternoon:req.body.wednesday.afternoon
+        },
+        thursday: {
+            morning:req.body.thursday.morning,
+            afternoon:req.body.thursday.afternoon
+        },
+        friday: {
+            morning:req.body.friday.morning,
+            afternoon:req.body.friday.afternoon
+        }
+
     }, function(err, user) { //this will run when create is completed
       if(err) {
         console.log("Error creating a Rotation Calendar");
@@ -44,7 +52,7 @@ rotation.createRotation = function (req, res) {
 
         res
           .status(201)
-          .json({status:201,user:user});
+          .json({status:201,body:user});
 
       }
   })
@@ -81,6 +89,50 @@ rotation.getRotation = function(week){
     return results.promise;
 }
 
+//get users to dropdown in rotation component
+rotation.getUsersToMonitor = function(req, res) {
+
+    var engineer = rotation.loadEnginners()
+    engineer.then(function(engineers){
+      console.log(engineers);
+      //jso = engineers;
+      //next()
+      res.send(engineers);
+    }, function(){
+      res.send({status:'error',error:'Error occured while fetching data from database.'});
+    });
+  
+  };
+  
+  rotation.loadEnginners = function(){
+    var results = q.defer();
+  
+  
+    users.aggregate(
+      [
+        {
+          $match:{
+            "status":true
+          }
+        },
+          { "$project": {
+            "_id": 1,
+            "name":1,
+            "last_name":1,
+          }
+        }
+      ],function(err, engi) {
+        
+        if (err){
+          results.reject(err);
+        }
+        results.resolve(engi);
+        
+      });
+      
+      return results.promise;
+  
+    }
 
     
 //Find the user and send it again to getUserBySessionID
@@ -146,7 +198,7 @@ rotation.findWeekByStatus = function(){
     return results.promise;
 }
 
-//update the day on the current week
+// update the day on the current week
 rotation.updateDayOnWeek = function(req, res) {
     var day = req.body.day;
     var week = req.body.week;
@@ -248,11 +300,12 @@ console.log("Get week" + week);
 
 rotation.updateRotation = function (req, res) {
 
-var week = req.body.week;
-console.log("Get week" + week);
+//var week = req.body.week;
+let id = req.body._id;
+//console.log("Get week" + week);
 
     db
-        .findOne({week : week})
+        .findOneAndUpdate({_id : id})
         .exec(function(err, doc){
         var response = {
             status: 200,
@@ -275,17 +328,17 @@ console.log("Get week" + week);
             .status(response.status)
             .json(response.message);
         } else {
-            doc.monday_morning = req.body.monday_morning,
-            doc.monday_afternoon = req.body.monday_afternoon,
-            doc.tuesday_morning= req.body.tuesday_morning,
-            doc.tuesday_afternoon= req.body.tuesday_afternoon,
-            doc.wednesday_morning= req.body.wednesday_morning,
-            doc.wednesday_afternoon= req.body.wednesday_afternoon,
-            doc.thursday_morning = req.body.thursday_morning,
-            doc.thursday_afternoon = req.body.thursday_afternoon,
-            doc.friday_morning= req.body.friday_morning,
-            doc.friday_afternoon= req.body.friday_afternoon,
-            doc.status = req.body.status
+            doc.monday.morning = req.body.monday.morning,
+            doc.monday.afternoon = req.body.monday.afternoon,
+            doc.tuesday.morning= req.body.tuesday.morning,
+            doc.tuesday.afternoon= req.body.tuesday.afternoon,
+            doc.wednesday.morning= req.body.wednesday.morning,
+            doc.wednesday.afternoon= req.body.wednesday.afternoon,
+            doc.thursday.morning = req.body.thursday.morning,
+            doc.thursday.afternoon = req.body.thursday.afternoon,
+            doc.friday.morning= req.body.friday.morning,
+            doc.friday.afternoon= req.body.friday.afternoon
+            //doc.status = req.body.status
 
         };
 

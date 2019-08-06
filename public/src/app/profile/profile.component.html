@@ -1,0 +1,148 @@
+  <ng-container *ngIf='showTemplate'>
+  <div class="pb-2 mt-4 mb-2 border-bottom title-container" >
+      <div class="row title-home">
+          <h2>Profile {{user.name}} {{user.last_name}}</h2>
+      </div>
+    </div>
+
+  <div class="container">
+      <form [formGroup]="myform" (ngSubmit)="updateUser(myform.value)" role="form" class="form-card">
+          <div class="modal-body">
+            <div class="container">
+              <div class="row row-container">
+                <div class="col-lg-3 style-col">
+                  <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                    <input formControlName="name" class="field__input a-field__input" placeholder="e.g. Matt" required>
+                    <span class="a-field__label-wrap">
+                      <span class="a-field__label">First name</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="col-lg-3 style-col">
+                  <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }">
+                    <input formControlName="last_name" class="field__input a-field__input" placeholder="e.g. Lee" required>
+                    <span class="a-field__label-wrap">
+                      <span class="a-field__label">Last Name</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="col-lg-3 style-col">
+                  <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                    <input formControlName="email" class="field__input a-field__input" placeholder="e.g. user@microfocus.com" required>
+                    <span class="a-field__label-wrap">
+                      <span class="a-field__label">Email</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="col-lg-3 style-col">
+                  <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+                    <input formControlName="city" class="field__input a-field__input" placeholder="e.g. Alphareta" required>
+                    <span class="a-field__label-wrap">
+                      <span class="a-field__label">City</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <div class="row row-container" *ngIf='showAdminFields'>
+                <div class="col-lg-3 style-col">
+                  <label class="field a-field a-field_a1 page__field">
+                    <input formControlName="max" class="field__input a-field__input" placeholder="0" required>
+                    <span class="a-field__label-wrap">
+                      <span class="a-field__label">Max Case</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="col-lg-3 style-col select-input" *ngIf='showAdminFields'>
+                  <mat-form-field>
+                    <mat-label>Static/Dynamic</mat-label>
+                    <mat-select formControlName="sta_dyn">
+                      <mat-option *ngFor="let supp of support" [value]="supp.value">
+                        {{supp.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3 style-col select-input" *ngIf='showAdminFields'>
+                  <mat-form-field>
+                    <mat-label>Role</mat-label>
+                    <mat-select formControlName="role">
+                      <mat-option *ngFor="let role of roles" [value]="role.value">
+                        {{role.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3 style-col select-input" *ngIf='showAdminFields'>
+                  <mat-form-field>
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                      <mat-option *ngFor="let sta of status" [value]="sta.value">
+                        {{sta.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row row-container">
+                <div class="col-lg-3">
+                  <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                    <input formControlName="username" class="field__input a-field__input" placeholder="LeeMat123" required>
+                    <span class="a-field__label-wrap">
+                      <span class="a-field__label">Username</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="col-lg-3">
+                  <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                    <input formControlName="password" type="password" class="field__input a-field__input" placeholder="Passw@rd123" required>
+                    <span class="a-field__label-wrap">
+                      <span class="a-field__label">Password</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-flat btn-primary" type="submit">
+              Update
+            </button>
+          </div>
+        </form>
+  </div>
+
+  <div class='schedule-table'>
+    <h4 >Schedule</h4>
+
+  <table class="table ">
+    <thead>
+      <tr style="text-align:center">
+        <th scope="col">Monday</th>
+        <th scope="col">Tuesday</th>
+        <th scope="col">Wednesday</th>
+        <th scope="col">Thursday</th>
+        <th scope="col">Friday</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="text-align:center">
+        <td>
+          {{schedule.monday}}
+        </td>
+        <td>
+            {{schedule.tuesday}}
+        </td>
+        <td>
+            {{schedule.wednesday}}
+        </td>
+        <td>
+            {{schedule.thursday}}
+        </td>
+        <td>
+          {{schedule.friday}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</ng-container>

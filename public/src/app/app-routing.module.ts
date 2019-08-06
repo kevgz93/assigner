@@ -5,6 +5,8 @@ import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { MonitorComponent } from './monitor/monitor.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ReportComponent } from './report/report.component';
 
 
 const routes: Routes = [
@@ -13,7 +15,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'maintenance', component: MaintenanceComponent },
   { path: 'monitor', component: MonitorComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'report', component: ReportComponent }
 ];
 
 @NgModule({

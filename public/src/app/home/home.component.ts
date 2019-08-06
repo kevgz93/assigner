@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
+import {IsAvailable} from '../lib/isAvailable';
+import * as moment from 'moment-timezone';
 
 
 
@@ -16,10 +18,20 @@ export class HomeComponent implements OnInit {
   private engineer;
   private displayedColumns: string[] = ['name', 'timeZone', 'max', 'schedule', 'email','day','week', 'month','action'];
   private condition;
+  private IsAvailable = new IsAvailable();
+  private showTable = false;
+  private qm;
+  public interval;
+
 
 
   
-  constructor(private service: ApiService, private router:Router) { }
+  constructor(private service: ApiService, private router:Router) {
+    let time = timer(30000, 30000);
+    this.interval = time.subscribe(t=> {
+      this.refreshHome();
+    });
+   }
 
   private countCases = (cases,month,monday):any=>{
     let count = {day:0, week:0, month:0}
@@ -87,6 +99,27 @@ export class HomeComponent implements OnInit {
     return false;
   }
 
+  private covertStringTimeZone = (timezone) => {
+    
+    if(timezone === 'cat'){
+      return 'Central America';
+    }
+    else if(timezone === 'mt'){
+      return 'Mountain Time Zone';
+    }
+    else if(timezone === 'pt'){
+      return 'Pacific Time Zone';
+    }
+    else if(timezone === 'ct'){
+      return 'Central Time Zone';
+    }
+    else {
+      return 'Eastern Time Zone';
+    }
+
+  }
+
+
   //Get all the engineer and render to the html
   getEngineer():void{
     this.service.getAllEngineers()
@@ -95,9 +128,15 @@ export class HomeComponent implements OnInit {
         item.cases = this.filterDay(item);
         item.disableAddButton = this.disableAddButton(item.max_case, item.cases.day);
         item.disableLessButton = this.disableLessButton();
+        item.today = this.IsAvailable.filterScheduleTodayDay(item);
+        item.timezone = this.covertStringTimeZone(item.schedule_loaded[0].time_zone);
       });
       this.engineer = data;
-      console.log(this.engineer);
+      this.engineer.sort(function(a, b)
+        {
+          return a.today.morning - b.today.morning;
+        });
+      this.showTable = true;
     })
   }
 
@@ -135,10 +174,83 @@ export class HomeComponent implements OnInit {
    
     return;
   }
-  
+
+  //get qm 
+  currentQmAms(rotation):string{
+    let date = new Date();
+    let day = date.getDay();
+    let dateCA = moment(date).tz( "America/Tegucigalpa");
+    let time = date.getHours();
+    if(day ===1 && time <12){
+      return rotation.monday.morning;
+    }
+    else if(day ===1){
+      return rotation.monday.afternoon;
+    }
+    else if(day ===2 && time < 12){
+      return rotation.tuesday.morning;
+    }
+    else if(day ===2){
+      return rotation.tuesday.afternoon;
+    }
+    else if(day ===3 && time <12){
+      return rotation.wednesday.morning;
+    }
+    else if(day ===3){
+      return rotation.wednesday.afternoon;
+    }
+    else if(day ===4 && time <12){
+      return rotation.thursday.morning;
+    }
+    else if(day ===4){
+      return rotation.thursday.afternoon;
+    }
+    else if(day ===5 && time <12){
+      return rotation.friday.morning;
+    }
+    else if(day ===5){
+      return rotation.friday.afternoon;
+    }
+
+  }
+
+  //Get the current QM
+  getQM():void{
+    let rotation;
+    this.service.getRotation().subscribe(data =>{
+      rotation = data.body[0];
+      if(data.status === 200){
+        let id = this.currentQmAms(rotation);
+        this.service.getOneEngineer(id)
+        .subscribe(user => {
+          this.qm = `${user.body.name} ${user.body.last_name}`;   
+          this.getEngineer();
+          //this.showtable = true;
+    })
+      }
+      else {
+        this.qm = "Error";
+      }
+        })
+
+    }
+
+    //refres home
+    refreshHome(){
+      this.getEngineer();
+        //this.data = this.sortable(this.data);
+
+    }
+
+  ngOnDestroy() {
+    this.interval.unsubscribe();
+  }
+
 
   ngOnInit() {
-    this.getEngineer();
+  
+    this.getQM();
+    
   }
 
 }

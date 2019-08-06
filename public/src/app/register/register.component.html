@@ -5,36 +5,37 @@
 </div>
 
 
-<div class="container">
-  <div class="row row-container">
-    <form class="form-card">
-      <div class="col-lg-3">
-        <label class="field a-field a-field_a1 page__field">
-          <input class="field__input a-field__input" placeholder="e.g. Matt" required>
+<div class="container" *ngIf='showUserFrom'>
+  <form [formGroup]="user" (ngSubmit)="addUser(user.value)" role="form" class="form-card">
+    <div class="row row-container">
+      <div class="col-lg-3 style-col">
+        <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+					<input formControlName="name" class="field__input a-field__input" placeholder="e.g. Matt" 
+					required >
           <span class="a-field__label-wrap">
             <span class="a-field__label">First name</span>
           </span>
-        </label>
+				</label>
       </div>
-      <div class="col-lg-3">
-        <label class="field a-field a-field_a1 page__field">
-          <input class="field__input a-field__input" placeholder="e.g. Lee" required>
+      <div class="col-lg-3 style-col">
+        <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }">
+          <input formControlName="last_name" class="field__input a-field__input" placeholder="e.g. Lee" required>
           <span class="a-field__label-wrap">
             <span class="a-field__label">Last Name</span>
           </span>
         </label>
       </div>
-      <div class="col-lg-3">
-        <label class="field a-field a-field_a1 page__field">
-          <input class="field__input a-field__input" placeholder="e.g. user@microfocus.com" required>
+      <div class="col-lg-3 style-col">
+        <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+          <input formControlName="email" class="field__input a-field__input" placeholder="e.g. user@microfocus.com" required>
           <span class="a-field__label-wrap">
             <span class="a-field__label">Email</span>
           </span>
         </label>
       </div>
-      <div class="col-lg-3">
-        <label class="field a-field a-field_a1 page__field">
-          <input class="field__input a-field__input" placeholder="e.g. Alphareta" required>
+      <div class="col-lg-3 style-col">
+        <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+          <input formControlName="city" class="field__input a-field__input" placeholder="e.g. Alphareta" required>
           <span class="a-field__label-wrap">
             <span class="a-field__label">City</span>
           </span>
@@ -42,84 +43,196 @@
       </div>
     </div>
     <div class="row row-container">
-      <div class="col-lg-3">
+      <div class="col-lg-3 style-col">
         <label class="field a-field a-field_a1 page__field">
-          <input class="field__input a-field__input" placeholder="0" required>
+          <input formControlName="max" class="field__input a-field__input" placeholder="0" required>
           <span class="a-field__label-wrap">
             <span class="a-field__label">Max Case</span>
           </span>
         </label>
       </div>
-      <div class="col-lg-3">
-        <label class="field a-field a-field_a1 page__field">
-          <input class="field__input a-field__input" placeholder="" required>
-          <span class="a-field__label-wrap">
-            <span class="a-field__label">Static/Dynamic</span>
-          </span>
-        </label>
+      <div class="col-lg-3 style-col select-input">
+        <mat-form-field>
+          <mat-label>Static/Dynamic</mat-label>
+          <mat-select formControlName="sta_dyn">
+            <mat-option *ngFor="let supp of support" [value]="supp.value">
+              {{supp.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <div class="col-lg-3">
-          <div class="wrap-input100 input100-select">
-            <span class="label-input100">Needed Services</span>
-            <div>
-              <select class="selection-2" name="service">
-                <option>Choose Services</option>
-                <option>Online Store</option>
-                <option>eCommerce Bussiness</option>
-                <option>UI/UX Design</option>
-                <option>Online Services</option>
-              </select>
-            </div>
-            <span class="focus-input100"></span>
-          </div>
+      <div class="col-lg-3 style-col select-input">
+        <mat-form-field>
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option *ngFor="let role of roles" [value]="role.value">
+              {{role.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <div class="col-lg-3">
-        <label class="field a-field a-field_a1 page__field">
-          <input class="field__input a-field__input" placeholder="e.g. Stanislav" required>
-          <span class="a-field__label-wrap">
-            <span class="a-field__label">Status</span>
-          </span>
-        </label>
+      <div class="col-lg-3 style-col select-input">
+        <mat-form-field>
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let sta of status" [value]="sta.value">
+              {{sta.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
     <div class="row row-container">
-      <div class="col-lg-6">
-        <label class="field a-field a-field_a1 page__field">
-          <input class="field__input a-field__input" placeholder="LeeMat123" required>
+      <div class="col-lg-3">
+        <label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+          <input formControlName="username" class="field__input a-field__input" placeholder="LeeMat123" required>
           <span class="a-field__label-wrap">
             <span class="a-field__label">Username</span>
           </span>
         </label>
       </div>
-      <div class="col-lg-6">
-        <label class="field a-field a-field_a1 page__field">
-          <input type="password" class="field__input a-field__input" placeholder="" required>
-          <span class="a-field__label-wrap">
-            <span class="a-field__label">Password</span>
-          </span>
-        </label>
-      </div>
-    </form>
-  </div>
+      <div class="col-lg-3">
+				<label class="field a-field a-field_a1 page__field" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+					<input formControlName="password" type="password" class="field__input a-field__input" placeholder="Passw@rd123" required>
+					<span class="a-field__label-wrap">
+						<span class="a-field__label">Password</span>
+					</span>
+				</label>
+			</div>
+			<div class="col-lg-3">
+				<div class="cont-button">
+					<div class="form-group">
+								<span style='padding-left: 1%;'> </span>
+						<button class="btn btn-primary" type="submit">Continue</button>
+					</div>
+				</div>
+			</div>
+    </div>
+	</form>
+
 </div>
 
-<script>
-  try {
-    var selectSimple = $('.js-select-simple');
 
-    selectSimple.each(function () {
-        var that = $(this);
-        var selectBox = that.find('select');
-        var selectDropdown = that.find('.select-dropdown');
-        selectBox.select2({
-            dropdownParent: selectDropdown
-        });
-    });
-
-} catch (err) {
-    console.log(err);
-}
-
-
-})(jQuery);
-</script>
+<!--                                 Start schedule form  -->
+<div class="container" *ngIf='showScheduleFrom'>
+	<form [formGroup]="schedule" (ngSubmit)="addSchedule(schedule.value)" role="form" class="form-card">
+		<div class="row row-time">
+			<mat-form-field>
+				<mat-label>Time Zone</mat-label>
+				<mat-select disableOptionCentering="true" panelClass="select-box" formControlName="time">
+					<mat-option *ngFor="let time of timezone" [value]="time.value">
+						{{time.viewValue}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="row">
+			<div class="col-lg-3 offset-lg-3">
+				<h3>Start Time</h3>
+			</div>
+			<div class="col-lg-4 ">
+					<h3>End Time</h3>
+				</div>
+		</div>
+		<div class="row">
+				<div class="col-lg-3">
+					<h4>Monday</h4>
+				</div>
+				<div class="col-lg-3 input-align">
+					<div formGroupName='monday'>
+						<input  formControlName="startHour" class="input-time" type="number" />:
+						<input  formControlName="startMinute" class="input-time" type="number" />
+					</div>
+					
+				</div>
+				<div class="col-lg-3 input-align">
+					<div formGroupName='monday'>
+						<input  formControlName="endHour" class="input-time" type="number" />:
+						<input  formControlName="endMinute" class="input-time" type="number" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+					<div class="col-lg-3">
+						<h4>Tuesday</h4>
+					</div>
+					<div class="col-lg-3 input-align">
+						<div formGroupName='tuesday'>
+							<input   formControlName="startHour" class="input-time" type="number" />:
+							<input   formControlName="startMinute" class="input-time" type="number" />
+						</div>
+						
+					</div>
+					<div class="col-lg-3 input-align">
+						<div formGroupName='tuesday'>
+							<input  formControlName="endHour" class="input-time" type="number" />:
+							<input  formControlName="endMinute" class="input-time" type="number" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+						<div class="col-lg-3">
+							<h4>Wednesday</h4>
+						</div>
+						<div class="col-lg-3 input-align">
+							<div formGroupName='wednesday'>
+								<input  formControlName="startHour" class="input-time" type="number" />:
+								<input  formControlName="startMinute" class="input-time" type="number" />
+							</div>
+							
+						</div>
+						<div class="col-lg-3 input-align">
+							<div formGroupName='wednesday'>
+								<input  formControlName="endHour" class="input-time" type="number" />:
+								<input  formControlName="endMinute" class="input-time" type="number" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+							<div class="col-lg-3">
+								<h4>Thursday</h4>
+							</div>
+							<div class="col-lg-3 input-align">
+								<div formGroupName='thursday'>
+									<input  formControlName="startHour" class="input-time" type="number" />:
+									<input  formControlName="startMinute" class="input-time" type="number" />
+								</div>
+								
+							</div>
+							<div class="col-lg-3 input-align">
+								<div formGroupName='thursday'>
+									<input  formControlName="endHour" class="input-time" type="number" />:
+									<input  formControlName="endMinute" class="input-time" type="number" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+								<div class="col-lg-3">
+									<h4>Friday</h4>
+								</div>
+								<div class="col-lg-3 input-align">
+									<div formGroupName='friday'>
+										<input  formControlName="startHour" class="input-time" type="number" />:
+										<input  formControlName="startMinute" class="input-time" type="number" />
+									</div>
+								</div>
+								<div class="col-lg-3 input-align">
+									<div formGroupName='friday'>
+										<input  formControlName="endHour" class="input-time" type="number" />:
+										<input  formControlName="endMinute" class="input-time" type="number" />
+									</div>
+								</div>
+							</div>
+			
+		<div class="col-lg-6 offset-lg-6">
+			<div class="cont-button">
+				<div class="form-group">
+					<button type="button" class="btn btn-info" (click)="skipSchedule();" [disabled]="loading">
+							Skip</button>
+							<span style='padding-left: 1%;'> </span>
+					<button class="btn btn-primary" type="submit">Continue</button>
+				</div>
+			</div>	
+		</div>
+	</form>
+</div>
