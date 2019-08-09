@@ -265,7 +265,7 @@ export class RegisterComponent implements OnInit {
     });
   }
   async ngOnDestroy () {
-    if(this.isCompleted != true){
+    if(this.isCompleted != true && this.id){
       await this.skipSchedule()
     }
     

@@ -36,6 +36,7 @@ export class MaintenanceComponent implements OnInit {
   public showScheduleFrom = false;
   private convertTimeZone = new ConvertTimeZero();
   public submitted = false;
+  public user_schedule;
 
   public roles: any = [
     {value: 'admin', viewValue: 'Admin'},
@@ -91,7 +92,6 @@ export class MaintenanceComponent implements OnInit {
     this.user.id = user._id;
     this.user.name = user.name;
     this.user.last_name = user.last_name;
-    user.schedule_loaded[0] = this.convertTimeZone.convertFromTimeZero(user.schedule_loaded[0]);
     this.fillScheduleForm(user);
     this.modalRef = this.modalService.show(template,{class: 'modal-lg'});
     this.showScheduleFrom = true;
@@ -129,6 +129,9 @@ export class MaintenanceComponent implements OnInit {
     getEngineer():void{
       this.service.getAllUsers()
       .subscribe(users => {
+        users.forEach(element => {
+          element.schedule_loaded[0] = this.convertTimeZone.convertFromTimeZero(element.schedule_loaded[0]);
+        });
         users.sort(function(a, b)
         {
           var x = a.name.toLowerCase();
@@ -197,7 +200,7 @@ export class MaintenanceComponent implements OnInit {
           if (response.status != 200) {
             alert("error finding user");
           }
-          else if (response.status != 204){
+          else if (response.status === 204){
             alert("User Deleted without schedule");
             this.modalRef.hide();
             this.getEngineer();
