@@ -66,8 +66,15 @@ export class MaintenanceComponent implements OnInit {
     this.user.id = user._id;
     this.user.name = user.name;
     this.user.last_name = user.last_name;
-    this.user.schedule_id = user.schedule_loaded[0]._id;
-    this.modalRef = this.modalService.show(template);
+    if(user.schedule_loaded[0]){
+      this.user.schedule_id = user.schedule_loaded[0]._id;
+      this.modalRef = this.modalService.show(template);
+
+    }
+    else{
+      this.user.schedule_id = "1";
+      this.modalRef = this.modalService.show(template);
+    }
   }
 
   openModalUser(template: TemplateRef<any>, user) {
@@ -187,8 +194,13 @@ export class MaintenanceComponent implements OnInit {
       
       this.service.deleteUser(this.user.id, this.user.schedule_id)
         .subscribe(response => {
-          if (response.status != 204) {
+          if (response.status != 200) {
             alert("error finding user");
+          }
+          else if (response.status != 204){
+            alert("User Deleted without schedule");
+            this.modalRef.hide();
+            this.getEngineer();
           }
           else {
             alert("User Deleted");

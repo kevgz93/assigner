@@ -390,7 +390,7 @@ users.deleteschedule= function(schedule_id){ //id
        schedule.findByIdAndRemove(schedule_id).exec(function(err, schedule){
 
         if (err){
-          reject(err);
+          resolve(err);
           }
         else{
           resolve(schedule);
@@ -416,10 +416,10 @@ users.usersDeleteOne = function(req, res) {
           .send({status:404});
       }
         users.deleteschedule(schedule_id).then(function(result){
-          res.send({status:204});
+          res.send({status:200});
 
         }, function(err){
-          res.send(err);
+          res.send({status:204,body:"Not schedule"});
         })
 
     });
