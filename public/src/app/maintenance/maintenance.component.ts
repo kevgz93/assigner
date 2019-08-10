@@ -129,9 +129,12 @@ export class MaintenanceComponent implements OnInit {
     getEngineer():void{
       this.service.getAllUsers()
       .subscribe(users => {
-        users.forEach(element => {
-          element.schedule_loaded[0] = this.convertTimeZone.convertFromTimeZero(element.schedule_loaded[0]);
-        });
+          users.forEach(element => {
+            if(element.schedule_loaded[0])
+            {
+              element.schedule_loaded[0] = this.convertTimeZone.convertFromTimeZero(element.schedule_loaded[0]);
+            }
+          });
         users.sort(function(a, b)
         {
           var x = a.name.toLowerCase();
@@ -196,14 +199,16 @@ export class MaintenanceComponent implements OnInit {
     delete(){
       
       this.service.deleteUser(this.user.id, this.user.schedule_id)
-        .subscribe(response => {
-          if (response.status != 200) {
-            alert("error finding user");
-          }
-          else if (response.status === 204){
+        .subscribe(response => { 
+          console.log(response);
+          if (response.status === 204) {
             alert("User Deleted without schedule");
             this.modalRef.hide();
             this.getEngineer();
+            
+          }
+          else if (response.status != 200){
+            alert("error finding user");
           }
           else {
             alert("User Deleted");

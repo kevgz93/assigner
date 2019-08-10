@@ -1,3 +1,4 @@
 /node_modules
 /npm-debug.log
-/.vscode
+/.vscod
+package-lock.json

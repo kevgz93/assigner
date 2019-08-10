@@ -390,7 +390,7 @@ users.deleteschedule= function(schedule_id){ //id
        schedule.findByIdAndRemove(schedule_id).exec(function(err, schedule){
 
         if (err){
-          resolve(err);
+          reject(err);
           }
         else{
           resolve(schedule);
