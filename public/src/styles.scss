@@ -4,3 +4,5 @@
 body, html {
     height: 100%!important;
   }
+
+  .cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; }

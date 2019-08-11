@@ -72,7 +72,6 @@ export class MonitorComponent implements OnInit {
           alert("error finding user");
         }
         else {
-          alert("Rotation updated");
           this.cancelForm();
         }
       })

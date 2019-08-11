@@ -88,7 +88,6 @@ export class ProfileComponent implements OnInit {
           alert("error finding user");
         }
         else{
-          alert("User updated");
           this.getUser();
         }
       });

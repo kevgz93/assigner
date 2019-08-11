@@ -94,7 +94,6 @@ export class RegisterComponent implements OnInit {
     this.service.addUser(data)
     .subscribe(msj => {
       if(msj.status == 201){
-        alert('User Added');
         this.id = msj.body._id;
         this.showUserFrom= false;
         this.showScheduleFrom = true;
@@ -178,7 +177,6 @@ export class RegisterComponent implements OnInit {
     this.service.addSchedule(data)
     .subscribe(msj => {
       if(msj.status == 201){
-        alert('Schedule Added');
         this.router.navigate(['./home']);
         
       }
@@ -199,7 +197,6 @@ export class RegisterComponent implements OnInit {
     this.service.addSchedule(this.defaultSchedule)
     .subscribe(msj => {
       if(msj.status == 201){
-        alert('Schedule Added');
         this.router.navigate(['./home']);
         
       }
