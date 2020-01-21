@@ -54,7 +54,7 @@ router
 
 router
 .route('/ticket/')
-.get( ctrlTicket.loadEnginner) //helpers.isAuthenticated,
+.get(helpers.isAuthenticated, ctrlTicket.loadEnginner) //helpers.isAuthenticated,
 .post(ctrlTicket.addTicket)
 .put(ctrlTicket.ticketDelete);
 

@@ -13,7 +13,7 @@ var routes = require('./api/routes');
 var app = express();
 
 app.use(cors());
-app.set('port', 8888);
+app.set('port', 8443);
 
 
 app.use(function(req, res, next){

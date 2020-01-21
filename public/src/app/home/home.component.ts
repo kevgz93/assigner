@@ -164,7 +164,7 @@ export class HomeComponent implements OnInit {
     .subscribe(msj => {
       if(msj.status != 200)
       {
-        console.log(msj);
+        
       }
       else{
         console.log(msj)
@@ -221,7 +221,6 @@ export class HomeComponent implements OnInit {
   getQM():void{
     let rotation;
     this.service.getRotation().subscribe(data =>{
-      console.log(data);
       rotation = data.body[0];
       if(data.status === 200){
         let id = this.currentQmAms(rotation);
